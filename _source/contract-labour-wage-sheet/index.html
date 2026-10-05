@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fa">
+  <title>Wage Sheet | Steel Plant</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #15243a;
+      --muted: #66758b;
+      --soft: #8793a5;
+      --line: #e4e9f0;
+      --panel: #ffffff;
+      --canvas: #f5f7fa;
+      --navy: #142b46;
+      --blue: #2557c7;
+      --blue-dark: #1b429b;
+      --blue-tint: #edf3ff;
+      --teal: #167d78;
+      --teal-tint: #e9f7f5;
+      --amber: #8c5b0b;
+      --amber-tint: #fff7e8;
+      --red: #b33b3b;
+      --shadow: 0 14px 38px rgba(24, 43, 70, .06), 0 2px 7px rgba(24, 43, 70, .03);
+      --radius: 16px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--canvas); color: var(--ink); min-width: 320px; }
+    button, input, select { font: inherit; }
+    button, select, input { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid rgba(37, 87, 199, .35); outline-offset: 2px; }
+    .skip-link { position: absolute; left: 16px; top: -48px; z-index: 10; padding: 10px 14px; background: white; border-radius: 8px; color: var(--blue); }
+    .skip-link:focus { top: 12px; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 76px; padding: 0 max(28px, calc((100vw - 1320px) / 2)); background: var(--panel); border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-mark { display: grid; place-items: center; width: 42px; height: 42px; flex: 0 0 42px; border-radius: 13px; background: var(--navy); color: white; font-size: 13px; font-weight: 800; letter-spacing: .07em; }
+    .brand-copy { display: grid; gap: 3px; }
+    .brand-copy strong { font-size: 14px; letter-spacing: .015em; }
+    .brand-copy span { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .topbar-meta { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 13px; }
+    .topbar-meta svg { color: var(--blue); }
+
+    main { width: min(1320px, 100%); margin: 0 auto; padding: 38px 28px 64px; }
+    .page-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 25px; }
+    .eyebrow { display: inline-block; margin-bottom: 9px; color: var(--blue); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(28px, 3.3vw, 38px); line-height: 1.12; letter-spacing: -.04em; }
+    .page-heading p { max-width: 620px; margin: 10px 0 0; color: var(--muted); font-size: 15px; line-height: 1.6; }
+    .heading-period { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 13px; white-space: nowrap; }
+    .heading-period svg { color: var(--blue); }
+
+    .privacy-note { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 20px; padding: 14px 16px; border: 1px solid #f0dfbb; border-radius: 12px; background: var(--amber-tint); color: #684916; font-size: 13px; line-height: 1.5; }
+    .privacy-note svg { flex: 0 0 18px; margin-top: 1px; }
+    .privacy-note strong { color: #53390e; }
+
+    .card { min-width: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); }
+    .selection-card { padding: 23px 24px 22px; }
+    .section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 19px; }
+    .section-title { margin: 0; font-size: 16px; font-weight: 750; letter-spacing: -.015em; }
+    .section-description { margin: 5px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .step-chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 999px; background: var(--blue-tint); color: var(--blue-dark); font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .step-chip b { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: white; font-size: 10px; }
+    .selection-grid { display: grid; grid-template-columns: minmax(220px, 1.65fr) repeat(2, minmax(155px, 1fr)); gap: 15px; }
+    .field label { display: block; margin: 0 0 7px; color: #46556b; font-size: 12px; font-weight: 700; }
+    .field-control { width: 100%; min-height: 46px; padding: 0 13px; border: 1px solid #d9e0e9; border-radius: 10px; background: #fff; color: var(--ink); font-size: 14px; transition: border-color .16s ease, box-shadow .16s ease; }
+    .field-control:hover { border-color: #aebdd1; }
+    .field-control:focus { border-color: var(--blue); outline: 0; box-shadow: 0 0 0 3px rgba(37, 87, 199, .12); }
+    .field-control:disabled { background: #f5f7fa; color: #7d8999; cursor: not-allowed; }
+    .control-wrap { position: relative; }
+    select.field-control { appearance: none; padding-right: 38px; }
+    .select-chevron { position: absolute; right: 13px; top: 50%; width: 15px; height: 15px; transform: translateY(-50%); color: #7a879a; pointer-events: none; }
+    .helper-text { min-height: 18px; margin: 12px 0 0; color: var(--muted); font-size: 12px; }
+    .helper-text[data-kind="error"] { color: var(--red); }
+
+    .job-card { margin-top: 18px; padding: 21px 24px 22px; }
+    .job-card-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 17px; }
+    .job-card-header .section-head { margin: 0; }
+    .contract-title { margin-top: 5px; }
+    .contract-label { color: var(--soft); font-size: 11px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+    .details-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+    .detail-item { min-height: 80px; padding: 13px 14px; border: 1px solid #edf0f4; border-radius: 11px; background: #fbfcfe; }
+    .detail-item span { display: block; margin-bottom: 7px; color: var(--muted); font-size: 11px; font-weight: 650; }
+    .detail-item strong { display: block; overflow: hidden; color: var(--ink); font-size: 13px; font-weight: 700; line-height: 1.45; text-overflow: ellipsis; }
+
+    .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 18px 0; }
+    .metric-card { position: relative; overflow: hidden; padding: 19px 20px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); box-shadow: 0 4px 16px rgba(24, 43, 70, .035); }
+    .metric-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .metric-label { color: var(--muted); font-size: 12px; font-weight: 650; }
+    .metric-icon { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: var(--blue-tint); color: var(--blue); }
+    .metric-icon.teal { background: var(--teal-tint); color: var(--teal); }
+    .metric-icon.navy { background: #edf1f6; color: var(--navy); }
+    .metric-value { display: block; margin-top: 11px; font-size: clamp(23px, 3vw, 29px); font-weight: 780; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+    .metric-note { display: block; margin-top: 5px; color: var(--soft); font-size: 11px; }
+
+    .records-card { overflow: hidden; }
+    .records-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 21px 24px 17px; border-bottom: 1px solid var(--line); }
+    .records-heading { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .records-heading h2 { margin: 0; font-size: 16px; letter-spacing: -.015em; }
+    .record-count { padding: 5px 9px; border-radius: 999px; background: #f1f4f8; color: #5b6a7f; font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .records-tools { display: flex; align-items: center; gap: 9px; }
+    .search-wrap { position: relative; width: min(270px, 30vw); }
+    .search-wrap svg { position: absolute; top: 50%; left: 12px; width: 16px; height: 16px; transform: translateY(-50%); color: #8592a5; pointer-events: none; }
+    .search-input { width: 100%; min-height: 38px; padding: 0 12px 0 36px; border: 1px solid #dce3ec; border-radius: 9px; background: #fff; font-size: 12px; }
+    .table-status { min-height: 38px; padding: 12px 24px 0; color: var(--muted); font-size: 12px; }
+    .table-status[data-kind="error"] { color: var(--red); }
+    .table-viewport { overflow: auto; max-height: min(58vh, 620px); border-top: 0; }
+    table { width: 100%; min-width: 1030px; border-collapse: separate; border-spacing: 0; text-align: left; font-size: 12px; }
+    caption { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    thead th { position: sticky; top: 0; z-index: 1; padding: 12px 13px; border-bottom: 1px solid #dfe5ee; background: #f7f9fc; color: #5c6a7e; font-size: 10px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; }
+    tbody td { padding: 13px; border-bottom: 1px solid #edf0f4; color: #38475c; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    tbody tr:hover td { background: #f8faff; }
+    tbody tr:last-child td { border-bottom: 0; }
+    .num-cell { color: #8090a5; }
+    .name-cell { color: var(--ink); font-weight: 700; }
+    .money-cell { color: var(--ink); font-weight: 750; text-align: right; }
+    .numeric { text-align: right; }
+    .empty-cell { padding: 48px 18px !important; text-align: center; white-space: normal; }
+    .empty-state { display: grid; justify-items: center; gap: 8px; max-width: 360px; margin: 0 auto; }
+    .empty-icon { display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 3px; border-radius: 13px; background: #f0f4fa; color: #60758f; }
+    .empty-state strong { color: #3e4e63; font-size: 13px; }
+    .empty-state span { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .bottom-note { margin: 14px 2px 0; color: #8995a6; font-size: 11px; line-height: 1.5; }
+
+    @media (max-width: 900px) {
+      main { padding: 29px 20px 48px; }
+      .topbar { padding: 0 20px; }
+      .details-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .selection-grid { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(130px, 1fr)); gap: 11px; }
+      .records-head { align-items: flex-start; flex-direction: column; }
+      .records-tools { width: 100%; justify-content: flex-end; }
+      .search-wrap { width: min(100%, 360px); }
+    }
+    @media (max-width: 620px) {
+      .topbar { min-height: 66px; padding: 0 16px; }
+      .brand-mark { width: 38px; height: 38px; flex-basis: 38px; }
+      .brand-copy strong { font-size: 12px; }
+      .brand-copy span { font-size: 9px; }
+      .topbar-meta { font-size: 11px; }
+      main { padding: 25px 14px 36px; }
+      .page-heading { align-items: flex-start; flex-direction: column; gap: 13px; margin-bottom: 20px; }
+      .page-heading p { font-size: 13px; }
+      .heading-period { font-size: 12px; }
+      .privacy-note { padding: 12px; font-size: 12px; }
+      .selection-card, .job-card { padding: 18px 15px; }
+      .section-head { gap: 10px; }
+      .section-description { max-width: 280px; }
+      .step-chip { font-size: 10px; }
+      .selection-grid { grid-template-columns: 1fr 1fr; gap: 13px 10px; }
+      .field:first-child { grid-column: 1 / -1; }
+      .field-control { min-height: 44px; font-size: 13px; }
+      .job-card-header { align-items: flex-start; flex-direction: column; }
+      .details-grid { gap: 9px; }
+      .detail-item { min-height: 74px; padding: 11px; }
+      .detail-item strong { font-size: 12px; }
+      .metrics { grid-template-columns: 1fr 1fr; gap: 9px; margin: 14px 0; }
+      .metric-card { padding: 15px; }
+      .metric-card:last-child { grid-column: 1 / -1; }
+      .metric-value { font-size: 24px; }
+      .records-head { padding: 18px 15px 14px; }
+      .records-heading { flex-wrap: wrap; }
+      .records-heading h2 { font-size: 15px; }
+      .records-tools { justify-content: stretch; }
+      .search-wrap { width: 100%; }
+      .table-status { padding: 11px 15px 0; }
+      .table-viewport { max-height: 60vh; }
+      table { min-width: 940px; }
+      thead th, tbody td { padding: 11px 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to wage sheet</a>
+  <header class="topbar">
+    <div class="brand" aria-label="Steel Plant contractor workforce">
+      <div class="brand-mark" aria-hidden="true">SP</div>
+      <div class="brand-copy">
+        <strong>Steel Plant</strong>
+        <span>Contractor workforce</span>
+      </div>
+    </div>
+    <div class="topbar-meta"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h10"/></svg><span>Monthly payroll review</span></div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-heading" aria-labelledby="page-title">
+      <div>
+        <span class="eyebrow">Payroll workspace</span>
+        <h1 id="page-title">Wage sheet</h1>
+        <p>Review worker attendance and monthly wages by contract. Choose a job and pay period to load the matching records.</p>
+      </div>
+      <div class="heading-period" aria-label="Current date">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M7.5 3.5v3M16.5 3.5v3M3.5 9.5h17"/></svg>
+        <span id="today-label"></span>
+      </div>
+    </section>
+
+    <aside class="privacy-note" aria-label="Payroll data reminder">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3 21 7v5c0 5-3.5 8-9 9-5.5-1-9-4-9-9V7l9-4Z"/><path d="M12 8v5M12 16h.01"/></svg>
+      <span><strong>Payroll information is confidential.</strong> Use this workspace only on a trusted device and share wage records with authorized people.</span>
+    </aside>
+
+    <section class="card selection-card" aria-labelledby="selection-title">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="selection-title">Select a contract and period</h2>
+          <p class="section-description">Start with a job code, then choose the month you want to review.</p>
+        </div>
+        <span class="step-chip"><b>1</b> Selection</span>
+      </div>
+      <div class="selection-grid">
+        <div class="field">
+          <label for="job-code">Job code</label>
+          <div class="control-wrap">
+            <select class="field-control" id="job-code" name="job-code" disabled>
+              <option value="">Loading job codes…</option>
+            </select>
+            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+          </div>
+        </div>
+        <div class="field">
+          <label for="month">Month</label>
+          <div class="control-wrap">
+            <select class="field-control" id="month" name="month" disabled>
+              <option value="">Loading available months…</option>
+            </select>
+            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+          </div>
+        </div>
+        <div class="field">
+          <label for="year">Year</label>
+          <div class="control-wrap">
+            <select class="field-control" id="year" name="year" disabled><option value="">Loading available years…</option></select>
+            <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+          </div>
+        </div>
+      </div>
+      <p class="helper-text" id="selection-message" role="status" aria-live="polite">Choose a job code to view contract details.</p>
+    </section>
+
+    <section class="card job-card" aria-labelledby="contract-title">
+      <div class="job-card-header">
+        <div class="section-head">
+          <div>
+            <span class="contract-label">Contract overview</span>
+            <h2 id="contract-title" class="section-title contract-title">Job details</h2>
+          </div>
+        </div>
+        <span class="step-chip"><b>2</b> Contract</span>
+      </div>
+      <div class="details-grid">
+        <div class="detail-item"><span>Agency</span><strong id="filtered-agency">Select a job code</strong></div>
+        <div class="detail-item"><span id="filtered-period-label">Contract period</span><strong><span id="filtered-start-date">—</span><span aria-hidden="true">&nbsp;–&nbsp;</span><span id="filtered-end-date">—</span></strong></div>
+        <div class="detail-item"><span>Work location</span><strong id="filtered-work-place">—</strong></div>
+        <div class="detail-item"><span>Department code</span><strong id="filtered-department-code">—</strong></div>
+        <div class="detail-item"><span>Job description</span><strong id="filtered-job-description">—</strong></div>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Wage sheet summary" aria-live="polite">
+      <article class="metric-card">
+        <div class="metric-top"><span class="metric-label">Workers listed</span><span class="metric-icon"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M16 20v-1.5a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4V20M9.5 10.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM17 11a3 3 0 1 0 0-6M17 14.5h1a3.5 3.5 0 0 1 3 3.5v2"/></svg></span></div>
+        <strong class="metric-value" id="total-workers">—</strong><span class="metric-note" id="workers-note">Choose a job and period</span>
+      </article>
+      <article class="metric-card">
+        <div class="metric-top"><span class="metric-label">Total wages</span><span class="metric-icon teal"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2v20M17 6.5c-.7-1-2.1-1.5-4.5-1.5-2.5 0-4 1.2-4 3s1.5 2.7 4.5 3.2 4.5 1.4 4.5 3.3-1.7 3.5-4.8 3.5c-2.3 0-4-.7-4.9-1.8"/></svg></span></div>
+        <strong class="metric-value" id="total-wages">—</strong><span class="metric-note">For the selected period</span>
+      </article>
+      <article class="metric-card">
+        <div class="metric-top"><span class="metric-label">Average per worker</span><span class="metric-icon navy"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19V5m0 14h17M8 15l3-4 3 2 5-6"/><path d="M16 7h3v3"/></svg></span></div>
+        <strong class="metric-value" id="average-wages">—</strong><span class="metric-note">Across loaded worker records</span>
+      </article>
+    </section>
+
+    <section class="card records-card" aria-labelledby="records-title">
+      <div class="records-head">
+        <div class="records-heading"><h2 id="records-title">Worker wage records</h2><span class="record-count" id="record-count">0 records</span></div>
+        <div class="records-tools">
+          <label class="search-wrap" for="worker-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+            <input class="search-input" id="worker-search" type="search" placeholder="Search name, skill or last 4 digits" autocomplete="off" disabled>
+          </label>
+        </div>
+      </div>
+      <p class="table-status" id="loading-workers" role="status" aria-live="polite">Select a job code and month to load wage records.</p>
+      <div class="table-viewport" role="region" aria-label="Worker wage records table" tabindex="0">
+        <table>
+          <caption>Worker attendance and wage amounts for the selected job code and pay period.</caption>
+          <thead>
+            <tr>
+              <th scope="col">No.</th><th scope="col">Worker name</th><th scope="col">Aadhaar (masked)</th><th scope="col">Birth date</th><th scope="col">Skill</th>
+              <th scope="col" class="numeric">Present days</th><th scope="col" class="numeric">Absent days</th><th scope="col" class="numeric">Allowance 1</th><th scope="col" class="numeric">Allowance 2</th><th scope="col" class="numeric">Total wages</th>
+            </tr>
+          </thead>
+          <tbody id="worker-table-body">
+            <tr><td class="empty-cell" colspan="10"><div class="empty-state"><span class="empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v15H4zM8 3v4M16 3v4M4 9h16M8 13h2M14 13h2M8 17h2"/></svg></span><strong>Choose a job and pay period</strong><span>Your worker records will appear here once the selections are complete.</span></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <p class="bottom-note">Amounts are shown in Indian Rupees (₹). Totals reflect the records returned for the selected job and period.</p>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

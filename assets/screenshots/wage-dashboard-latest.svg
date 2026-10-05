@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Contract Labour Wage Sheet Generator dashboard preview</title>
+  <desc id="desc">A privacy-safe preview of the SQL-backed wage dashboard, showing only the March 2025 period stored in the database.</desc>
+  <defs>
+    <linearGradient id="blue" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#2f65d8"/><stop offset="1" stop-color="#1c469e"/></linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="8" stdDeviation="13" flood-color="#183052" flood-opacity=".08"/></filter>
+  </defs>
+  <rect width="1600" height="1040" fill="#f5f7fa"/>
+  <rect width="1600" height="76" fill="#fff"/>
+  <path d="M0 75.5h1600" stroke="#e4e9f0"/>
+  <rect x="82" y="17" width="42" height="42" rx="13" fill="#142b46"/>
+  <text x="103" y="44" fill="#fff" font-family="Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle">SP</text>
+  <text x="140" y="35" fill="#15243a" font-family="Arial,sans-serif" font-size="15" font-weight="700">Steel Plant</text>
+  <text x="140" y="52" fill="#66758b" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.2">CONTRACTOR WORKFORCE</text>
+  <text x="1510" y="45" fill="#66758b" font-family="Arial,sans-serif" font-size="13" text-anchor="end">Monthly payroll review</text>
+
+  <text x="100" y="126" fill="#2557c7" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">PAYROLL WORKSPACE</text>
+  <text x="100" y="172" fill="#15243a" font-family="Arial,sans-serif" font-size="38" font-weight="700">Wage sheet</text>
+  <text x="100" y="203" fill="#66758b" font-family="Arial,sans-serif" font-size="15">Review attendance and monthly wages by contract.</text>
+  <text x="100" y="225" fill="#66758b" font-family="Arial,sans-serif" font-size="15">Choose a job and a period available in the SQL records.</text>
+
+  <rect x="100" y="248" width="1400" height="58" rx="12" fill="#fff7e8" stroke="#f0dfbb"/>
+  <circle cx="126" cy="277" r="11" fill="#f3e3bd"/>
+  <text x="126" y="281" fill="#684916" font-family="Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle">i</text>
+  <text x="149" y="273" fill="#53390e" font-family="Arial,sans-serif" font-size="13" font-weight="700">Payroll information is confidential.</text>
+  <text x="149" y="291" fill="#684916" font-family="Arial,sans-serif" font-size="12">Worker-level values are hidden in this portfolio preview.</text>
+
+  <rect x="100" y="326" width="1400" height="192" rx="16" fill="#fff" stroke="#e4e9f0" filter="url(#shadow)"/>
+  <text x="126" y="363" fill="#15243a" font-family="Arial,sans-serif" font-size="16" font-weight="700">Select a contract and period</text>
+  <text x="126" y="384" fill="#66758b" font-family="Arial,sans-serif" font-size="12">The available period list comes directly from the wage table.</text>
+  <rect x="1250" y="345" width="210" height="29" rx="15" fill="#edf3ff"/>
+  <circle cx="1270" cy="359.5" r="9" fill="#fff"/>
+  <text x="1270" y="363" fill="#2557c7" font-family="Arial,sans-serif" font-size="10" font-weight="700" text-anchor="middle">1</text>
+  <text x="1287" y="363" fill="#1b429b" font-family="Arial,sans-serif" font-size="11" font-weight="700">SQL-backed filters</text>
+
+  <text x="126" y="420" fill="#46556b" font-family="Arial,sans-serif" font-size="12" font-weight="700">Job code</text>
+  <rect x="126" y="432" width="620" height="52" rx="10" fill="#fff" stroke="#d9e0e9"/>
+  <text x="144" y="464" fill="#7d8999" font-family="Arial,sans-serif" font-size="14">Choose a job code</text>
+  <path d="m716 454 7 7 7-7" fill="none" stroke="#7a879a" stroke-width="2"/>
+  <text x="770" y="420" fill="#46556b" font-family="Arial,sans-serif" font-size="12" font-weight="700">Month</text>
+  <rect x="770" y="432" width="310" height="52" rx="10" fill="#fff" stroke="#d9e0e9"/>
+  <text x="788" y="464" fill="#15243a" font-family="Arial,sans-serif" font-size="14">March</text>
+  <path d="m1048 454 7 7 7-7" fill="none" stroke="#7a879a" stroke-width="2"/>
+  <text x="1104" y="420" fill="#46556b" font-family="Arial,sans-serif" font-size="12" font-weight="700">Year</text>
+  <rect x="1104" y="432" width="356" height="52" rx="10" fill="#fff" stroke="#d9e0e9"/>
+  <text x="1122" y="464" fill="#15243a" font-family="Arial,sans-serif" font-size="14">2025</text>
+  <path d="m1428 454 7 7 7-7" fill="none" stroke="#7a879a" stroke-width="2"/>
+  <text x="126" y="504" fill="#66758b" font-family="Arial,sans-serif" font-size="11">Only March 2025 is currently present in the database.</text>
+
+  <rect x="100" y="538" width="1400" height="164" rx="16" fill="#fff" stroke="#e4e9f0" filter="url(#shadow)"/>
+  <text x="126" y="575" fill="#15243a" font-family="Arial,sans-serif" font-size="16" font-weight="700">Contract details</text>
+  <text x="126" y="596" fill="#66758b" font-family="Arial,sans-serif" font-size="12">Loaded from the jobs table and attendance records.</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="126" y="615" width="250" height="63" rx="10" fill="#fbfcfe" stroke="#edf0f4"/><text x="142" y="638" fill="#66758b" font-size="11">Agency</text><text x="142" y="660" fill="#15243a" font-size="13" font-weight="700">Contract agency</text>
+    <rect x="390" y="615" width="250" height="63" rx="10" fill="#fbfcfe" stroke="#edf0f4"/><text x="406" y="638" fill="#66758b" font-size="11">Contract period</text><text x="406" y="660" fill="#15243a" font-size="13" font-weight="700">Available contract dates</text>
+    <rect x="654" y="615" width="250" height="63" rx="10" fill="#fbfcfe" stroke="#edf0f4"/><text x="670" y="638" fill="#66758b" font-size="11">Work place</text><text x="670" y="660" fill="#15243a" font-size="13" font-weight="700">From database</text>
+    <rect x="918" y="615" width="250" height="63" rx="10" fill="#fbfcfe" stroke="#edf0f4"/><text x="934" y="638" fill="#66758b" font-size="11">Department code</text><text x="934" y="660" fill="#15243a" font-size="13" font-weight="700">From attendance</text>
+    <rect x="1182" y="615" width="278" height="63" rx="10" fill="#fbfcfe" stroke="#edf0f4"/><text x="1198" y="638" fill="#66758b" font-size="11">Job description</text><text x="1198" y="660" fill="#15243a" font-size="13" font-weight="700">Available contract metadata</text>
+  </g>
+
+  <rect x="100" y="722" width="1400" height="248" rx="16" fill="#fff" stroke="#e4e9f0" filter="url(#shadow)"/>
+  <text x="126" y="762" fill="#15243a" font-family="Arial,sans-serif" font-size="16" font-weight="700">Monthly wage records</text>
+  <rect x="1343" y="741" width="116" height="27" rx="14" fill="#f1f4f8"/><text x="1401" y="759" fill="#5b6a7f" font-family="Arial,sans-serif" font-size="11" font-weight="700" text-anchor="middle">Privacy-safe view</text>
+  <path d="M100 790h1400" stroke="#e4e9f0"/>
+  <rect x="101" y="791" width="1398" height="43" fill="#f7f9fc"/>
+  <g fill="#5c6a7e" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing=".7">
+    <text x="126" y="817">WORKER</text><text x="315" y="817">AADHAAR</text><text x="465" y="817">BIRTH DATE</text><text x="605" y="817">SKILL</text><text x="760" y="817">PRESENT / ABSENT</text><text x="1008" y="817">ALLOWANCES</text><text x="1275" y="817">STORED WAGE TOTAL</text>
+  </g>
+  <path d="M100 834h1400" stroke="#edf0f4"/>
+  <rect x="606" y="861" width="388" height="64" rx="13" fill="#f5f7fa"/>
+  <text x="800" y="887" fill="#3e4e63" font-family="Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle">Worker identities omitted from preview</text>
+  <text x="800" y="908" fill="#66758b" font-family="Arial,sans-serif" font-size="11" text-anchor="middle">Live records load after a job code is selected.</text>
+  <text x="100" y="1013" fill="#8995a6" font-family="Arial,sans-serif" font-size="11">Portfolio interface preview · March 2025 is the only payroll period currently available in SQL.</text>
+</svg>

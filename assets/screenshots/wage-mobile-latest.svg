@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 1180" role="img" aria-labelledby="title desc">
+  <title id="title">Mobile wage sheet preview</title>
+  <desc id="desc">A privacy-safe mobile preview of the responsive wage dashboard with only the March 2025 payroll period available.</desc>
+  <rect width="760" height="1180" fill="#edf1f6"/>
+  <rect x="93" y="26" width="574" height="1128" rx="38" fill="#142b46"/>
+  <rect x="105" y="38" width="550" height="1104" rx="29" fill="#f5f7fa"/>
+  <rect x="105" y="38" width="550" height="72" rx="29" fill="#fff"/>
+  <path d="M105 85v25h550V85" fill="#fff"/>
+  <path d="M105 109.5h550" stroke="#e4e9f0"/>
+  <rect x="126" y="54" width="40" height="40" rx="12" fill="#142b46"/>
+  <text x="146" y="80" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="700" text-anchor="middle">SP</text>
+  <text x="179" y="70" fill="#15243a" font-family="Arial,sans-serif" font-size="14" font-weight="700">Steel Plant</text>
+  <text x="179" y="87" fill="#66758b" font-family="Arial,sans-serif" font-size="9" letter-spacing="1">CONTRACTOR WORKFORCE</text>
+  <text x="132" y="149" fill="#2557c7" font-family="Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="1.4">PAYROLL WORKSPACE</text>
+  <text x="132" y="186" fill="#15243a" font-family="Arial,sans-serif" font-size="30" font-weight="700">Wage sheet</text>
+  <text x="132" y="211" fill="#66758b" font-family="Arial,sans-serif" font-size="12">Attendance and stored wages by contract.</text>
+  <rect x="132" y="232" width="496" height="69" rx="12" fill="#fff7e8" stroke="#f0dfbb"/>
+  <circle cx="153" cy="254" r="9" fill="#f3e3bd"/><text x="153" y="258" fill="#684916" font-family="Arial,sans-serif" font-size="11" font-weight="700" text-anchor="middle">i</text>
+  <text x="170" y="254" fill="#53390e" font-family="Arial,sans-serif" font-size="11" font-weight="700">Payroll data is confidential.</text>
+  <text x="170" y="276" fill="#684916" font-family="Arial,sans-serif" font-size="10">Identity values hidden in this preview.</text>
+
+  <rect x="132" y="321" width="496" height="375" rx="15" fill="#fff" stroke="#e4e9f0"/>
+  <text x="154" y="358" fill="#15243a" font-family="Arial,sans-serif" font-size="15" font-weight="700">Select a contract</text>
+  <text x="154" y="378" fill="#66758b" font-family="Arial,sans-serif" font-size="11">Choose a job code, month and year.</text>
+  <text x="154" y="416" fill="#46556b" font-family="Arial,sans-serif" font-size="11" font-weight="700">Job code</text>
+  <rect x="154" y="426" width="452" height="46" rx="9" fill="#fff" stroke="#d9e0e9"/>
+  <text x="169" y="455" fill="#7d8999" font-family="Arial,sans-serif" font-size="12">Choose a job code</text>
+  <path d="m578 446 6 6 6-6" fill="none" stroke="#7a879a" stroke-width="1.8"/>
+  <text x="154" y="504" fill="#46556b" font-family="Arial,sans-serif" font-size="11" font-weight="700">Month</text>
+  <rect x="154" y="514" width="212" height="46" rx="9" fill="#fff" stroke="#d9e0e9"/>
+  <text x="169" y="543" fill="#15243a" font-family="Arial,sans-serif" font-size="12">March</text>
+  <path d="m338 534 6 6 6-6" fill="none" stroke="#7a879a" stroke-width="1.8"/>
+  <text x="388" y="504" fill="#46556b" font-family="Arial,sans-serif" font-size="11" font-weight="700">Year</text>
+  <rect x="388" y="514" width="218" height="46" rx="9" fill="#fff" stroke="#d9e0e9"/>
+  <text x="403" y="543" fill="#15243a" font-family="Arial,sans-serif" font-size="12">2025</text>
+  <path d="m578 534 6 6 6-6" fill="none" stroke="#7a879a" stroke-width="1.8"/>
+  <rect x="154" y="583" width="452" height="37" rx="9" fill="#edf3ff"/>
+  <text x="169" y="607" fill="#1b429b" font-family="Arial,sans-serif" font-size="10" font-weight="700">Available payroll period: March 2025</text>
+  <text x="154" y="662" fill="#66758b" font-family="Arial,sans-serif" font-size="10">No unavailable future periods are offered.</text>
+
+  <rect x="132" y="716" width="496" height="166" rx="15" fill="#fff" stroke="#e4e9f0"/>
+  <text x="154" y="752" fill="#15243a" font-family="Arial,sans-serif" font-size="15" font-weight="700">Contract details</text>
+  <text x="154" y="774" fill="#66758b" font-family="Arial,sans-serif" font-size="11">Loaded from SQL after selecting a job.</text>
+  <rect x="154" y="794" width="217" height="65" rx="9" fill="#fbfcfe" stroke="#edf0f4"/>
+  <text x="169" y="817" fill="#66758b" font-family="Arial,sans-serif" font-size="10">Agency</text><text x="169" y="840" fill="#15243a" font-family="Arial,sans-serif" font-size="12" font-weight="700">Contract metadata</text>
+  <rect x="383" y="794" width="223" height="65" rx="9" fill="#fbfcfe" stroke="#edf0f4"/>
+  <text x="398" y="817" fill="#66758b" font-family="Arial,sans-serif" font-size="10">Work place / department</text><text x="398" y="840" fill="#15243a" font-family="Arial,sans-serif" font-size="12" font-weight="700">Available details</text>
+
+  <rect x="132" y="902" width="496" height="177" rx="15" fill="#fff" stroke="#e4e9f0"/>
+  <text x="154" y="940" fill="#15243a" font-family="Arial,sans-serif" font-size="15" font-weight="700">Monthly wage records</text>
+  <path d="M132 960h496" stroke="#e4e9f0"/>
+  <rect x="154" y="980" width="452" height="69" rx="12" fill="#f5f7fa"/>
+  <text x="380" y="1008" fill="#3e4e63" font-family="Arial,sans-serif" font-size="11" font-weight="700" text-anchor="middle">Worker-level details are not shown</text>
+  <text x="380" y="1028" fill="#66758b" font-family="Arial,sans-serif" font-size="10" text-anchor="middle">Names, masked Aadhaar, attendance, allowances, wage totals</text>
+  <text x="380" y="1110" fill="#8995a6" font-family="Arial,sans-serif" font-size="10" text-anchor="middle">Responsive dashboard preview · payroll data stays private</text>
+</svg>
