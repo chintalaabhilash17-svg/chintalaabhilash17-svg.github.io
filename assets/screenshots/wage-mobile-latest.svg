@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 1180" role="img" aria-labelledby="title desc">
   <title id="title">Mobile wage sheet preview</title>
-  <desc id="desc">A privacy-safe mobile preview of the responsive wage dashboard with only the March 2025 payroll period available.</desc>
+  <desc id="desc">A privacy-safe mobile preview of the dashboard with attendance from December 2024 through February 2025 and stored wage totals from March 2025.</desc>
   <rect width="760" height="1180" fill="#edf1f6"/>
   <rect x="93" y="26" width="574" height="1128" rx="38" fill="#142b46"/>
   <rect x="105" y="38" width="550" height="1104" rx="29" fill="#f5f7fa"/>
@@ -35,8 +35,8 @@
   <text x="403" y="543" fill="#15243a" font-family="Arial,sans-serif" font-size="12">2025</text>
   <path d="m578 534 6 6 6-6" fill="none" stroke="#7a879a" stroke-width="1.8"/>
   <rect x="154" y="583" width="452" height="37" rx="9" fill="#edf3ff"/>
-  <text x="169" y="607" fill="#1b429b" font-family="Arial,sans-serif" font-size="10" font-weight="700">Available payroll period: March 2025</text>
-  <text x="154" y="662" fill="#66758b" font-family="Arial,sans-serif" font-size="10">No unavailable future periods are offered.</text>
+  <text x="169" y="607" fill="#1b429b" font-family="Arial,sans-serif" font-size="10" font-weight="700">Dec–Feb attendance · March 2025 wages</text>
+  <text x="154" y="662" fill="#66758b" font-family="Arial,sans-serif" font-size="10">Missing earlier-month wage fields display as NULL.</text>
 
   <rect x="132" y="716" width="496" height="166" rx="15" fill="#fff" stroke="#e4e9f0"/>
   <text x="154" y="752" fill="#15243a" font-family="Arial,sans-serif" font-size="15" font-weight="700">Contract details</text>
