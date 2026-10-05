@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
   <title id="title">Contract Labour Wage Sheet Generator dashboard preview</title>
-  <desc id="desc">A privacy-safe preview of the SQL-backed wage dashboard, showing only the March 2025 period stored in the database.</desc>
+  <desc id="desc">A privacy-safe preview of the SQL-backed wage dashboard. It offers attendance for December 2024 through February 2025 and stored wage totals for March 2025; missing wage fields display as NULL.</desc>
   <defs>
     <linearGradient id="blue" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#2f65d8"/><stop offset="1" stop-color="#1c469e"/></linearGradient>
     <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="8" stdDeviation="13" flood-color="#183052" flood-opacity=".08"/></filter>
@@ -45,7 +45,7 @@
   <rect x="1104" y="432" width="356" height="52" rx="10" fill="#fff" stroke="#d9e0e9"/>
   <text x="1122" y="464" fill="#15243a" font-family="Arial,sans-serif" font-size="14">2025</text>
   <path d="m1428 454 7 7 7-7" fill="none" stroke="#7a879a" stroke-width="2"/>
-  <text x="126" y="504" fill="#66758b" font-family="Arial,sans-serif" font-size="11">Only March 2025 is currently present in the database.</text>
+  <text x="126" y="504" fill="#66758b" font-family="Arial,sans-serif" font-size="11">Dec 2024–Feb 2025: attendance only · March 2025: stored wage totals</text>
 
   <rect x="100" y="538" width="1400" height="164" rx="16" fill="#fff" stroke="#e4e9f0" filter="url(#shadow)"/>
   <text x="126" y="575" fill="#15243a" font-family="Arial,sans-serif" font-size="16" font-weight="700">Contract details</text>
@@ -70,5 +70,5 @@
   <rect x="606" y="861" width="388" height="64" rx="13" fill="#f5f7fa"/>
   <text x="800" y="887" fill="#3e4e63" font-family="Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle">Worker identities omitted from preview</text>
   <text x="800" y="908" fill="#66758b" font-family="Arial,sans-serif" font-size="11" text-anchor="middle">Live records load after a job code is selected.</text>
-  <text x="100" y="1013" fill="#8995a6" font-family="Arial,sans-serif" font-size="11">Portfolio interface preview · March 2025 is the only payroll period currently available in SQL.</text>
+  <text x="100" y="1013" fill="#8995a6" font-family="Arial,sans-serif" font-size="11">Portfolio preview · Earlier-month wage fields remain NULL when values are not stored.</text>
 </svg>
