@@ -5,3 +5,5 @@ This repository contains the public portfolio site and portfolio-safe project pr
 The RINL Contract Labour Wage Sheet is maintained as a separate project at https://github.com/chintalaabhilash17-svg/rinl-contract-labour-wage-sheet. GitHub Pages hosts this portfolio and privacy-safe project previews only; it cannot run the app's Express API.
 
 The project previews omit worker-level identity and payroll values. Keep `.env`, SQL exports, and identifiable payroll records out of this public repository.
+
+The browser-based driver drowsiness demo is published at https://chintalaabhilash17-svg.github.io/driver-drowsiness/. It processes camera frames locally and does not send emergency calls or messages.

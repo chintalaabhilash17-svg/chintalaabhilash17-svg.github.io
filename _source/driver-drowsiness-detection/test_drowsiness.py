@@ -6,6 +6,8 @@ from types import SimpleNamespace
 
 from detector import DrowsinessState, Settings, eye_aspect_ratio, facial_metrics
 from reporting import write_alert_record
+from session_reporting import SessionJournal
+from datetime import datetime, timezone
 
 
 class DetectorTests(unittest.TestCase):
@@ -28,15 +30,32 @@ class DetectorTests(unittest.TestCase):
         self.assertGreater(eye_aspect_ratio(open_eye), .20)
         self.assertLess(eye_aspect_ratio(closed_eye), .25)
 
-    def test_closure_alert_requires_duration_and_blink_is_counted(self):
-        state = DrowsinessState(Settings())
+    def test_ear_handles_narrow_and_wide_eye_geometry(self):
+        narrow_eye = [(0, 1), (1, .65), (2, .65), (2, 1), (2, 1.35), (1, 1.35)]
+        wide_eye = [(0, 1), (1, .3), (3, .3), (4, 1), (3, 1.7), (1, 1.7)]
+        self.assertAlmostEqual(eye_aspect_ratio(narrow_eye), eye_aspect_ratio(wide_eye), places=5)
+
+    def test_closure_warning_and_alarm_use_timestamps(self):
+        state = DrowsinessState(Settings(closure_warning_seconds=2, closure_alarm_seconds=30))
         self.assertEqual(state.update(.1, 0, 0), "Monitoring")
-        self.assertEqual(state.update(.1, 0, .01), "Monitoring")
-        self.assertIn("DROWSINESS ALERT", state.update(.1, 0, .02))
+        self.assertIn("WARNING", state.update(.1, 0, 2))
+        self.assertIn("ALARM", state.update(.1, 0, 30))
+        state.update(.3, 0, 31)
+        self.assertEqual(state.alert, "Monitoring")
+
+    def test_calibration_adapts_threshold_and_missing_face_resets_closure(self):
+        state = DrowsinessState(Settings())
+        threshold = state.calibrate([.4] * 10)
+        self.assertAlmostEqual(threshold, .288)
+        state.update(.1, 0, 0)
+        state.missed_face()
+        self.assertEqual(state.update(.1, 0, .1), "Monitoring")
+
+    def test_blinks_and_face_unavailable_are_distinct(self):
         blink_state = DrowsinessState(Settings())
         for t, ear in enumerate((.3, .1, .3, .1, .3, .1)):
             blink_state.update(ear, 0, t * .1)
-        self.assertIn("DROWSINESS ALERT", blink_state.alert)
+        self.assertIn("frequent eye changes", blink_state.alert)
         blink_state.update(.1, 0, 61)
         self.assertEqual(len(blink_state.blinks), 0)
 
@@ -50,7 +69,23 @@ class DetectorTests(unittest.TestCase):
     def test_yawn_duration(self):
         state = DrowsinessState(Settings(yawn_seconds=3))
         self.assertEqual(state.update(.3, 35, 0), "Monitoring")
-        self.assertEqual(state.update(.3, 35, 3), "YAWNING ALERT")
+        self.assertEqual(state.update(.3, 35, 3), "WARNING - sustained mouth opening")
+
+    def test_bad_landmarks_rejected(self):
+        with self.assertRaises(ValueError): eye_aspect_ratio([(0, 0)] * 5)
+
+    def test_session_journal_records_periods_and_deduplicates_events(self):
+        start = datetime(2026, 1, 1, tzinfo=timezone.utc)
+        with tempfile.TemporaryDirectory() as directory:
+            journal = SessionJournal(Path(directory), started_at=start)
+            journal.record_event("warning", at=start, event_id="same")
+            self.assertFalse(journal.record_event("warning", at=start, event_id="same"))
+            journal.set_monitoring(False, start.replace(second=10))
+            report = journal.finish(start.replace(second=20))
+            document = __import__("json").loads(report.read_text())
+            self.assertEqual(len(document["monitoring_periods"]), 1)
+            self.assertEqual(len(document["events"]), 1)
+            self.assertEqual(document["duration_seconds"], 20)
 
     def test_facial_metrics_uses_scaled_landmarks(self):
         coords = [SimpleNamespace(x=.5, y=.5) for _ in range(478)]

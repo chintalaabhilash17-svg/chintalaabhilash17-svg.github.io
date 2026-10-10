@@ -1,4 +1,8 @@
+.env
+.env.*
+!.env.example
 .venv/
 __pycache__/
-reports/*.csv
-models/*.task
+*.py[cod]
+reports/
+models/face_landmarker.task
