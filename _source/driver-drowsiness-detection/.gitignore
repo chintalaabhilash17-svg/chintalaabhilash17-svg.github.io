@@ -1,4 +1,5 @@
+.env
 .venv/
 __pycache__/
-reports/*.csv
+reports/
 models/*.task

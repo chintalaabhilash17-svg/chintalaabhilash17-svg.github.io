@@ -1,7 +1,7 @@
 # Abhilash Chinthala Portfolio
 
-This repository contains the public portfolio site and portfolio-safe project previews. GitHub Pages publishes the site from the repository root.
+This repository contains the public portfolio site and privacy-safe project previews. GitHub Pages publishes the site from the repository root.
 
-The RINL Contract Labour Wage Sheet is maintained as a separate project at https://github.com/chintalaabhilash17-svg/rinl-contract-labour-wage-sheet. GitHub Pages hosts this portfolio and privacy-safe project previews only; it cannot run the app's Express API.
+The [Driver Drowsiness Detection browser demo](https://chintalaabhilash17-svg.github.io/driver-drowsiness/) runs locally in the browser. Its source and Python desktop application are in `_source/driver-drowsiness-detection/`; no webcam footage, personal session reports, emergency-contact numbers, or credentials are committed.
 
-The project previews omit worker-level identity and payroll values. Keep `.env`, SQL exports, and identifiable payroll records out of this public repository.
+The RINL Contract Labour Wage Sheet is maintained as a separate project at https://github.com/chintalaabhilash17-svg/rinl-contract-labour-wage-sheet. GitHub Pages hosts its privacy-safe project preview only; it cannot run the Express API.
