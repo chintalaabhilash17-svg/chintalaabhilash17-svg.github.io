@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 6059)
-Total output lines: 156
-
 import { DEFAULTS, DetectionState, beginEscalation, csv, drowsinessConfirmation, finishSession, finishTimedTest, logEvent, session, setMonitoring } from './core.mjs';
 
 const $ = id => document.getElementById(id), video = $('camera'), canvas = $('overlay'), ctx = canvas.getContext('2d');
@@ -106,7 +103,7 @@ function processFrame(now) {
 }
 async function stop() {
   active = false; cancelAnimationFrame(frameId); stopAlarm(); clearInterval(escalationTimer); escalationTimer = null; if (escalation) { escalation.cancel(); escalation = null; }
-  if (stream) stream.getTracks().forEach(track => track.stop()); stream = null; video.srcObject = null; video.p…59 tokens truncated…ateLabel').textContent = 'OFF · CAMERA RELEASED'; $('stateDot').parentElement.classList.remove('on'); $('cameraBadge').textContent = 'STANDBY'; $('statusText').textContent = 'Monitoring off'; $('statusHint').textContent = 'Turn monitoring on when safely parked.';
+  if (stream) stream.getTracks().forEach(track => track.stop()); stream = null; video.srcObject = null; video.parentElement.style.removeProperty('aspect-ratio'); video.style.display = 'none'; ctx.clearRect(0,0,canvas.width,canvas.height); $('cameraEmpty').hidden = false; $('monitorToggle').checked = false; $('calibrate').disabled = true; $('stateLabel').textContent = 'OFF · CAMERA RELEASED'; $('stateDot').parentElement.classList.remove('on'); $('cameraBadge').textContent = 'STANDBY'; $('statusText').textContent = 'Monitoring off'; $('statusHint').textContent = 'Turn monitoring on when safely parked.';
   if (landmarker) { landmarker.close(); landmarker = null; }
   if (report) { setMonitoring(report, false); persist(); }
 }
