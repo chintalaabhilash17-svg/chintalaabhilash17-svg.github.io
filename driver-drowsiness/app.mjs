@@ -1,6 +1,11 @@
+Warning: truncated output (original token count: 6059)
+Total output lines: 156
+
 import { DEFAULTS, DetectionState, beginEscalation, csv, drowsinessConfirmation, finishSession, finishTimedTest, logEvent, session, setMonitoring } from './core.mjs';
 
 const $ = id => document.getElementById(id), video = $('camera'), canvas = $('overlay'), ctx = canvas.getContext('2d');
+const EYES = [[362,385,387,263,373,380],[33,160,158,133,153,144]];
+const FACE_OVAL = [10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109];
 const KEYS = { sessions: 'vigil.sessions.v1', contacts: 'vigil.contacts.v1', consent: 'vigil.sos-consent.v1', sound: 'vigil.sound.v1', settings: 'vigil.settings.v1' };
 const load = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
 const save = (key, value) => localStorage.setItem(key, JSON.stringify(value));
@@ -74,6 +79,7 @@ async function start() {
     stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }, audio: false });
     stream.getVideoTracks()[0].addEventListener('ended', () => { if(active){logEvent(report,'camera_error',{reason:'Camera stream interrupted'});stop().then(()=>noCamera('Camera interrupted'));} });
     video.srcObject = stream; await video.play();
+    video.parentElement.style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
     active = true; detector = new DetectionState(config); setMonitoring(report, true); beginFiveMinuteTest(); $('cameraEmpty').hidden = true; video.style.display = 'block'; $('stateLabel').textContent = 'ON · CAMERA LIVE'; $('stateDot').parentElement.classList.add('on'); $('monitorToggle').checked = true; $('calibrate').disabled = false; $('cameraBadge').textContent = 'LIVE'; $('statusText').textContent = 'Monitoring'; $('statusHint').textContent = 'Frames are analyzed on this device.'; save(KEYS.sound, sound); persist(); frameId = requestAnimationFrame(processFrame);
   } catch (e) { logEvent(report, 'camera_error', { reason: String(e?.message || e).slice(0, 160) }); await stop(); noCamera(e?.name === 'NotAllowedError' ? 'Camera permission denied' : `Could not start camera (${e?.name || 'error'})`); if (testRun) await endFiveMinuteTest('camera_unavailable'); toast(`Camera error: ${e?.name || 'unavailable'}`); }
   finally { $('monitorToggle').disabled = false; }
@@ -86,11 +92,12 @@ function processFrame(now) {
     if (!points) { const status=detector.missing(); if (lastStatus !== status) logEvent(report, 'detection_interruption', { reason: status }); handleStatus(status); }
     else {
       const earFor = ids => { const d = (a,b) => Math.hypot((points[a].x-points[b].x)*video.videoWidth,(points[a].y-points[b].y)*video.videoHeight); return (d(ids[1],ids[5])+d(ids[2],ids[4]))/(2*d(ids[0],ids[3])); };
-      const ear = (earFor([362,385,387,263,373,380]) + earFor([33,160,158,133,153,144])) / 2, mouth = Math.hypot((points[13].x-points[14].x)*video.videoWidth,(points[13].y-points[14].y)*video.videoHeight);
+      const ear = (earFor(EYES[0]) + earFor(EYES[1])) / 2, mouth = Math.hypot((points[13].x-points[14].x)*video.videoWidth,(points[13].y-points[14].y)*video.videoHeight);
       if (!Number.isFinite(ear) || ear > 1 || !Number.isFinite(mouth)) {const status=detector.missing();if(lastStatus!==status)logEvent(report,'detection_interruption',{reason:'Unreliable facial landmarks'});handleStatus(status);}
       else { const status = detector.update(ear, mouth, now / 1000); handleStatus(status, ear, mouth); if (calibrating && ear >= config.ear) calibration.push(ear);
+        ctx.beginPath(); FACE_OVAL.forEach((id,i)=>{const x=points[id].x*canvas.width,y=points[id].y*canvas.height;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}); ctx.closePath(); ctx.strokeStyle = 'rgba(192,237,128,.4)'; ctx.lineWidth = 1.5; ctx.stroke();
         ctx.fillStyle = '#c0ed80'; ctx.strokeStyle = '#c0ed80'; ctx.lineWidth = 2;
-        for (const ids of [[362,385,387,263,373,380],[33,160,158,133,153,144]]) { ctx.beginPath(); ids.forEach((id,i)=>{const x=points[id].x*canvas.width,y=points[id].y*canvas.height;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.stroke();ids.forEach(id=>{ctx.beginPath();ctx.arc(points[id].x*canvas.width,points[id].y*canvas.height,2.5,0,Math.PI*2);ctx.fill()}); }
+        for (const ids of EYES) { ctx.beginPath(); ids.forEach((id,i)=>{const x=points[id].x*canvas.width,y=points[id].y*canvas.height;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.stroke();ids.forEach(id=>{ctx.beginPath();ctx.arc(points[id].x*canvas.width,points[id].y*canvas.height,2.5,0,Math.PI*2);ctx.fill()}); }
         ctx.beginPath();ctx.moveTo(points[13].x*canvas.width,points[13].y*canvas.height);ctx.lineTo(points[14].x*canvas.width,points[14].y*canvas.height);ctx.stroke();
       }
     }
@@ -99,7 +106,7 @@ function processFrame(now) {
 }
 async function stop() {
   active = false; cancelAnimationFrame(frameId); stopAlarm(); clearInterval(escalationTimer); escalationTimer = null; if (escalation) { escalation.cancel(); escalation = null; }
-  if (stream) stream.getTracks().forEach(track => track.stop()); stream = null; video.srcObject = null; video.style.display = 'none'; ctx.clearRect(0,0,canvas.width,canvas.height); $('cameraEmpty').hidden = false; $('monitorToggle').checked = false; $('calibrate').disabled = true; $('stateLabel').textContent = 'OFF · CAMERA RELEASED'; $('stateDot').parentElement.classList.remove('on'); $('cameraBadge').textContent = 'STANDBY'; $('statusText').textContent = 'Monitoring off'; $('statusHint').textContent = 'Turn monitoring on when safely parked.';
+  if (stream) stream.getTracks().forEach(track => track.stop()); stream = null; video.srcObject = null; video.p…59 tokens truncated…ateLabel').textContent = 'OFF · CAMERA RELEASED'; $('stateDot').parentElement.classList.remove('on'); $('cameraBadge').textContent = 'STANDBY'; $('statusText').textContent = 'Monitoring off'; $('statusHint').textContent = 'Turn monitoring on when safely parked.';
   if (landmarker) { landmarker.close(); landmarker = null; }
   if (report) { setMonitoring(report, false); persist(); }
 }
